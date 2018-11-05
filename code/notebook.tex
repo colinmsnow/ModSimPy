@@ -1,0 +1,802 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{MultiCountrySIR}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{multi-country-sir-model}{%
+\section{Multi-Country SIR Model}\label{multi-country-sir-model}}
+
+\hypertarget{by-colin-snow-and-meg-ku}{%
+\subsection{by Colin Snow and Meg Ku}\label{by-colin-snow-and-meg-ku}}
+
+    \hypertarget{question}{%
+\subsubsection{Question:}\label{question}}
+
+How does a plague/disease spread from one country to another?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Configure Jupyter so figures appear in the notebook}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Configure Jupyter to display the assigned value after an assignment}
+        \PY{o}{\PYZpc{}}\PY{k}{config} InteractiveShell.ast\PYZus{}node\PYZus{}interactivity=\PYZsq{}last\PYZus{}expr\PYZus{}or\PYZus{}assign\PYZsq{}
+        
+        \PY{c+c1}{\PYZsh{} import functions from the modsim.py module}
+        \PY{k+kn}{from} \PY{n+nn}{modsim} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \hypertarget{model}{%
+\subsubsection{Model:}\label{model}}
+
+We plan to make a model that simulates the cycle of infection between
+two large populations.
+
+First we create a model with arbitrary parameters to ensure its
+functionality.
+
+Here we set the initial state and system variables. We define
+``movementRate'' as the fraction of the population moving per day. The
+values here are arbitrary; we are just trying to see if it can be
+implemented in our model below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Set initial state variables}
+        \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{init}  \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}globally defining system variables}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{t0 = 1,}
+        \PY{l+s+sd}{dt = 0.01}
+        \PY{l+s+sd}{t\PYZus{}end = 100}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{infectionRate1} \PY{o}{=} \PY{l+m+mf}{0.01}
+        \PY{n}{recoveryRate1} \PY{o}{=} \PY{l+m+mf}{0.05}
+        \PY{n}{infectionRate2} \PY{o}{=} \PY{l+m+mf}{0.01}
+        \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.05}
+        \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{1} 
+        \PY{n}{immunizationFactor1}\PY{o}{=}\PY{l+m+mi}{0}  \PY{c+c1}{\PYZsh{}fraction of people to be immunized before model starts in group 1 and 2}
+        \PY{n}{immunizationFactor2}\PY{o}{=}\PY{l+m+mi}{0}  \PY{c+c1}{\PYZsh{}set to 0 to disable immunization}
+        
+        \PY{c+c1}{\PYZsh{}Creating our system}
+        \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                        \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,}
+                        \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                        \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                        \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                        \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                        \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                        \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Here we used the ODE solver to update our model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{slope\PYZus{}func}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    finds dx/dt for each stock and returns them}
+        \PY{l+s+sd}{    inputs:}
+        \PY{l+s+sd}{        state current state variable at time t}
+        \PY{l+s+sd}{        t = current time}
+        \PY{l+s+sd}{        system = model\PYZsq{}s system variable}
+        \PY{l+s+sd}{    output:}
+        \PY{l+s+sd}{        updated rates}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{n}{unpack}\PY{p}{(}\PY{n}{system}\PY{p}{)}
+            \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{r1}\PY{p}{,} \PY{n}{r2} \PY{o}{=} \PY{n}{state}
+            \PY{k}{if} \PY{p}{(}\PY{n}{flip}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{o+ow}{and} \PY{n}{i2}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{0006}
+            \PY{k}{elif}\PY{p}{(}\PY{n}{i1}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{0006}
+           
+            \PY{n}{ds1dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+            \PY{n}{ds2dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)}
+            \PY{n}{di1dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1} \PY{o}{+} \PY{n}{infectedPeopleMoved}
+            \PY{n}{di2dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2} \PY{o}{\PYZhy{}} \PY{n}{infectedPeopleMoved}
+            \PY{n}{dr1dt} \PY{o}{=} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1}
+            \PY{n}{dr2dt} \PY{o}{=} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2}
+            \PY{k}{return} \PY{n}{ds1dt}\PY{p}{,} \PY{n}{ds2dt}\PY{p}{,} \PY{n}{di1dt}\PY{p}{,} \PY{n}{di2dt}\PY{p}{,} \PY{n}{dr1dt}\PY{p}{,} \PY{n}{dr2dt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Run ODE solver to test functions}
+        \PY{n}{results}\PY{p}{,} \PY{n}{details} \PY{o}{=} \PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func}\PY{p}{,}\PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Plot the results}
+        \PY{n}{results}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+        \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Disease Travelling between Two Countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (days)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of people}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As shown above, the model produces two SIR outputs; there is a
+significant offset in time for the disease outbreak in Country 2.
+
+    \hypertarget{trying-to-model-to-real-data}{%
+\subsubsection{Trying to model to real
+data}\label{trying-to-model-to-real-data}}
+
+http://www.math.unm.edu/\textasciitilde{}sulsky/mathcamp/ApplyData.pdf
+
+In order to get a better idea of infection rates for real data, lets
+consider three different real world diseases and how their infection
+statistics relate. We collected data for the following diseases:
+influenza, the bubonic plague, and ebola.
+
+    The values of the infection rates were experimentally calculated by
+running the simulation multiple times to find the best fit.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Data for Influenza from 1930s in Arkansas}
+        \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{read\PYZus{}html}
+        \PY{n}{table}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/influenzaData.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{1500}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{init}  \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{1500}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{n}{infectionRate1} \PY{o}{=} \PY{l+m+mf}{0.0015}
+        
+        \PY{n}{recoveryRate1} \PY{o}{=} \PY{l+m+mf}{0.2}
+        \PY{n}{infectionRate2} \PY{o}{=} \PY{l+m+mf}{0.01}
+        \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.05}
+        \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{}Creating our system}
+        \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                        \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}
+                        \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                        \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                        \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                        \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                        \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                        \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                        \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{slope\PYZus{}func2}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    finds dx/dt for each stock and returns them}
+        \PY{l+s+sd}{    inputs:}
+        \PY{l+s+sd}{        state current state variable at time t}
+        \PY{l+s+sd}{        t = current time}
+        \PY{l+s+sd}{        system = model\PYZsq{}s system variable}
+        \PY{l+s+sd}{    output:}
+        \PY{l+s+sd}{        updated rates}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{unpack}\PY{p}{(}\PY{n}{system}\PY{p}{)}
+            \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{r1}\PY{p}{,} \PY{n}{r2} \PY{o}{=} \PY{n}{state}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} infectedPeopleMoved= movementRate*np.random.randn()}
+            \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{if} \PY{p}{(}\PY{n}{flip}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)} \PY{o+ow}{and} \PY{n}{i2}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{000001}
+            \PY{k}{elif}\PY{p}{(}\PY{n}{i1}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{000001}
+           
+            \PY{n}{ds1dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+            \PY{n}{ds2dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)}
+            \PY{n}{di1dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1} \PY{o}{+} \PY{n}{infectedPeopleMoved}
+            \PY{n}{di2dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2} \PY{o}{\PYZhy{}} \PY{n}{infectedPeopleMoved}
+            \PY{n}{dr1dt} \PY{o}{=} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1}
+            \PY{n}{dr2dt} \PY{o}{=} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2}
+            \PY{k}{return} \PY{n}{ds1dt}\PY{p}{,} \PY{n}{ds2dt}\PY{p}{,} \PY{n}{di1dt}\PY{p}{,} \PY{n}{di2dt}\PY{p}{,} \PY{n}{dr1dt}\PY{p}{,} \PY{n}{dr2dt}
+        
+        \PY{n}{results2}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func2}\PY{p}{,}  \PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Plot shows infection rate of about .000214 per day}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} we ignored the other values in the table.}
+        
+        \PY{n}{table}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{s1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{i1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{r1}\PY{p}{)}
+        \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Influenza in Arkansas, 1930s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (days)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of people}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}Eyam village bubonic plague, 1665\PYZhy{}66}
+        
+        \PY{n}{newSusceptible}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{235}\PY{p}{,}\PY{l+m+mi}{201}\PY{p}{,}\PY{l+m+mf}{153.5}\PY{p}{,}\PY{l+m+mi}{121}\PY{p}{,}\PY{l+m+mi}{108}\PY{p}{,}\PY{l+m+mi}{97}\PY{p}{,}\PY{l+m+mi}{81}\PY{p}{,}\PY{l+m+mi}{83}\PY{p}{)}
+        \PY{n}{newInfected}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{14.5}\PY{p}{,}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{29}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{n}{time}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{)}
+        
+        \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{254}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{init}  \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{254}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{n}{infectionRate1} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{0032}
+        
+        \PY{n}{recoveryRate1} \PY{o}{=} \PY{l+m+mf}{2.82}\PY{o}{/}\PY{l+m+mi}{5}
+        \PY{n}{infectionRate2} \PY{o}{=} \PY{l+m+mf}{0.01}
+        \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.05}
+        \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                        \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,}
+                        \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                        \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                        \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                        \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                        \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                        \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}
+        \PY{n}{results2}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func2}\PY{p}{,} \PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    This model gave us data for both infected and susceptible people, so we
+fit the infection rate until both were modelled accurately.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} plot shows normal infection rate of about .00064 per day}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{s1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{i1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{r1}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{time}\PY{p}{,}\PY{n}{newInfected}\PY{p}{)}
+        \PY{n}{plot}\PY{p}{(}\PY{n}{time}\PY{p}{,}\PY{n}{newSusceptible}\PY{p}{)}
+        \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bubonic Plague in Eyam Village, 1665\PYZhy{}1666}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (days)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of people}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In this model, we again had only the fraction infected, but with the
+probable recovery rate and this data we were able to model all three
+populations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}English Boarding School Influenza, 1938}
+         
+         \PY{n}{sick}\PY{o}{=}\PY{p}{(} \PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{221}\PY{p}{,}\PY{l+m+mi}{291}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{235}\PY{p}{,}\PY{l+m+mi}{190}\PY{p}{,}\PY{l+m+mi}{125}\PY{p}{,}\PY{l+m+mi}{70} \PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{time}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{)}
+         
+         \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{762}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{init}  \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{762}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{infectionRate1} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{0026}
+         
+         \PY{n}{recoveryRate1} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{5}
+         \PY{n}{infectionRate2} \PY{o}{=} \PY{l+m+mf}{0.01}
+         \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.05}
+         \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                         \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                         \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,}
+                         \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                         \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                         \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                         \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                         \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                         \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}
+         \PY{n}{results2}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func2}\PY{p}{,} \PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} plot shows normal infection rate of about .0026 per day}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{s1}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{i1}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{r1}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{time}\PY{p}{,}\PY{n}{sick}\PY{p}{)}
+         \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{English Boarding School Influenza, 1938}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (days)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of people}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}Ebola outbreak in liberia in 2014}
+         
+         \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{4292419}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{846}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{735}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{init}\PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{l+m+mi}{4292419}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{846}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{735}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{infectionRate1} \PY{o}{=} \PY{l+m+mf}{1.63e\PYZhy{}7}
+         
+         \PY{n}{recoveryRate1} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{1}
+         \PY{n}{infectionRate2} \PY{o}{=} \PY{l+m+mf}{0.01}
+         \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.05}
+         \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                         \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                         \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}
+                         \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                         \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                         \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                         \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                         \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                         \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}
+         \PY{n}{results2}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func2}\PY{p}{,} \PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} plot shows normal infection rate of about 1.67e\PYZhy{}7}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{s1}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{i1}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results2}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results2}\PY{o}{.}\PY{n}{r1}\PY{p}{)}
+         \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ebola outbreak in Liberia in 2014}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (days)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of people}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusions-from-data}{%
+\subsubsection{Conclusions from Data:}\label{conclusions-from-data}}
+
+Infection rate can be up to .0026 per day for influenza in closely
+packed areas (schools) but is more normally about .000214 in open areas
+if the succeptible population is assumed to be slightly larger than the
+total infected number. Bubonic plague had a .00064 infection rate in an
+old time village, which may be more accurate in developing countries.
+When an entire country is analyzed such asn in the Liberia model, the
+infection rate is much lower at 1.67e-7, suggesting a correlation
+between population size and infection rate.
+
+    \hypertarget{infection-analysis}{%
+\subsubsection{Infection Analysis:}\label{infection-analysis}}
+
+By taking these infection rates in their respective populations, we were
+able to graph infection rate versus population, creating a rational
+equation that can output an infection rate for any population size.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} We find the infection rate to be proportional to a rational function with an a of about .934 which is supported by}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} a study on the infectiveness of AIDS.}
+         
+         \PY{n}{infectionRates}\PY{o}{=}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{000214}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{0032}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{0026}\PY{p}{,}\PY{l+m+mf}{1.63e\PYZhy{}7}\PY{p}{)}
+         \PY{n}{populations}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1500}\PY{p}{,}\PY{l+m+mi}{254}\PY{p}{,}\PY{l+m+mi}{762}\PY{p}{,}\PY{l+m+mi}{4292419}\PY{p}{)}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{populations}\PY{p}{,}\PY{n}{infectionRates}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} best fit rational equation is .934/(population+.6787)}
+         \PY{n}{populationArray}\PY{o}{=}\PY{n}{linrange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{10e6}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{populationArray}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{934}\PY{o}{/}\PY{p}{(}\PY{n}{populationArray}\PY{o}{+}\PY{o}{.}\PY{l+m+mi}{6787}\PY{p}{)}\PY{p}{)}
+         \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Disease Infection Rates Versus Population Size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Population}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Infection Rate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here we create a function that creates this infection rate from our
+function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{createInfectionRateRational}\PY{p}{(}\PY{n}{population}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{o}{.}\PY{l+m+mi}{934}\PY{o}{/}\PY{p}{(}\PY{n}{population}\PY{o}{+}\PY{o}{.}\PY{l+m+mi}{6787}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{results}{%
+\subsubsection{Results:}\label{results}}
+
+Now we apply this information to a model of France and Spain. We crerate
+a disease in France, and watch as people travelling between the
+countries spread it. The infection rates are determined by our function,
+and the travel rates are determined by tourism data that we collected.
+The net travel rate is about zero as we are focusing on vacationers, but
+this movement is enough to quickly spread the disease across borders.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Using France and Spain}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}country1=France}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}country2=Spain}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} as of 2014}
+         
+         \PY{n}{population1}\PY{o}{=}\PY{l+m+mi}{66320000}
+         \PY{n}{population2}\PY{o}{=}\PY{l+m+mi}{46480000}
+         
+         \PY{n}{state} \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{n}{population1}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{n}{population2}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{init}  \PY{o}{=} \PY{n}{State}\PY{p}{(}\PY{n}{s1}\PY{o}{=}\PY{n}{population1}\PY{p}{,}\PY{n}{s2}\PY{o}{=}\PY{n}{population2}\PY{p}{,}\PY{n}{i1}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{i2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{r2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{infectionRate1} \PY{o}{=} \PY{n}{createInfectionRateRational}\PY{p}{(}\PY{n}{population1}\PY{p}{)}
+         \PY{n}{recoveryRate1} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{infectionRate2} \PY{o}{=} \PY{n}{createInfectionRateRational}\PY{p}{(}\PY{n}{population2}\PY{p}{)}
+         \PY{n}{recoveryRate2} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{movementRate} \PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{}Creating our system}
+         \PY{n}{system} \PY{o}{=} \PY{n}{System}\PY{p}{(}\PY{n}{init}\PY{o}{=}\PY{n}{init}\PY{p}{,} 
+                         \PY{n}{t0}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}
+                         \PY{n}{t\PYZus{}end}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}
+                         \PY{n}{infectionRate1}\PY{o}{=}\PY{n}{infectionRate1}\PY{p}{,}
+                         \PY{n}{recoveryRate1}\PY{o}{=}\PY{n}{recoveryRate1}\PY{p}{,} 
+                         \PY{n}{infectionRate2}\PY{o}{=}\PY{n}{infectionRate2}\PY{p}{,}
+                         \PY{n}{recoveryRate2}\PY{o}{=}\PY{n}{recoveryRate2}\PY{p}{,}
+                         \PY{n}{movementRate}\PY{o}{=}\PY{n}{movementRate}\PY{p}{,} 
+                         \PY{n}{dt}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{slope\PYZus{}func3}\PY{p}{(}\PY{n}{state}\PY{p}{,} \PY{n}{t}\PY{p}{,} \PY{n}{system}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    finds dx/dt for each stock and returns them}
+         \PY{l+s+sd}{    inputs:}
+         \PY{l+s+sd}{        state current state variable at time t}
+         \PY{l+s+sd}{        t = current time}
+         \PY{l+s+sd}{        system = model\PYZsq{}s system variable}
+         \PY{l+s+sd}{    output:}
+         \PY{l+s+sd}{        updated rates}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{unpack}\PY{p}{(}\PY{n}{system}\PY{p}{)}
+             \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{r1}\PY{p}{,} \PY{n}{r2} \PY{o}{=} \PY{n}{state}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} infectedPeopleMoved= movementRate*np.random.randn()}
+             \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{if} \PY{p}{(}\PY{n}{flip}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}\PY{o+ow}{and} \PY{n}{i2}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{p}{(}\PY{o}{.}\PY{l+m+mi}{000360} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{000380}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}
+             \PY{k}{elif}\PY{p}{(}\PY{n}{i1}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{infectedPeopleMoved} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{000360} \PY{o}{+} \PY{o}{.}\PY{l+m+mi}{000380}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2}
+            
+             \PY{n}{ds1dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)}
+             \PY{n}{ds2dt} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)}
+             \PY{n}{di1dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate1}\PY{o}{*}\PY{n}{s1}\PY{o}{*}\PY{n}{i1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1} \PY{o}{+} \PY{n}{infectedPeopleMoved}\PY{o}{*}\PY{p}{(}\PY{n}{i1}\PY{o}{+}\PY{n}{i2}\PY{p}{)}
+             \PY{n}{di2dt} \PY{o}{=} \PY{p}{(}\PY{n}{infectionRate2}\PY{o}{*}\PY{n}{s2}\PY{o}{*}\PY{n}{i2}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2} \PY{o}{\PYZhy{}} \PY{n}{infectedPeopleMoved}\PY{o}{*}\PY{p}{(}\PY{n}{i1}\PY{o}{+}\PY{n}{i2}\PY{p}{)}
+             \PY{n}{dr1dt} \PY{o}{=} \PY{n}{i1}\PY{o}{*}\PY{n}{recoveryRate1}
+             \PY{n}{dr2dt} \PY{o}{=} \PY{n}{i2}\PY{o}{*}\PY{n}{recoveryRate2}
+             \PY{k}{return} \PY{n}{ds1dt}\PY{p}{,} \PY{n}{ds2dt}\PY{p}{,} \PY{n}{di1dt}\PY{p}{,} \PY{n}{di2dt}\PY{p}{,} \PY{n}{dr1dt}\PY{p}{,} \PY{n}{dr2dt}
+         
+         \PY{n}{results3}\PY{p}{,}\PY{n}{details}\PY{o}{=}\PY{n}{run\PYZus{}ode\PYZus{}solver}\PY{p}{(}\PY{n}{system}\PY{p}{,} \PY{n}{slope\PYZus{}func3}\PY{p}{,} \PY{n}{max\PYZus{}step}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{plot}\PY{p}{(}\PY{n}{results3}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results3}\PY{o}{.}\PY{n}{s1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results3}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results3}\PY{o}{.}\PY{n}{i1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orangered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results3}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results3}\PY{o}{.}\PY{n}{r1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results3}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results3}\PY{o}{.}\PY{n}{s2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results3}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results3}\PY{o}{.}\PY{n}{i2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plot}\PY{p}{(}\PY{n}{results3}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{n}{results3}\PY{o}{.}\PY{n}{r2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{decorate}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Plague spread from France to Spain}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Time (days)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of people}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Red lines represent S,I,and R for France, and Blue lines represent
+S,I,and R for Spain. There is a noticeable delay in Spain's infection in
+this model, showing the time the disease takes to travel.
+
+    \hypertarget{interpretation}{%
+\subsubsection{Interpretation:}\label{interpretation}}
+
+With the given parameters, there is about a 10 day offset between the
+peaks of infection in the two countries. Though, this model does assume
+several factors in order to simplify it. We assume that the disease is
+isolated within the countries, that everyone that travels to another
+country returns, that there is no immunization, and that the populations
+remain constant.
+
+    Overall, our model projects that there is a measurable delay between
+peak infections and that this delay is directly caused by their travel
+rates.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
